@@ -26,6 +26,14 @@ Targets are a key concept when it comes to MSBuild files.  Targets are basically
 ```
 This target is pretty simple to understand.  It has a name of RestorePackages, and an execute instruction.  An execute instruction will execute a command like how you would execute a command in the terminal.  In this case the command calls nuget in order to restore all of our packages for the CWMasterTeacher solution.  
 
+Calling this target and executing it is pretty simple.  We're going to execute MSBuild using a batch file.  In order to execute and run MSBuild we need to provide a path to MSBuild, as well as call MSBuild with a target.  This can be done with the two lines of code in a .bat file below:
+
+```bat
+@call "C:\Program Files (x86)\Microsoft Visual Studio 14.0\Common7\Tools\VsMSBuildCmd.bat"
+msbuild CwMasterTeacher3.msbuild /t:RestorePackages
+```
+Note that the second line specifies a target with /t: followed by the Target name that we want to invoke. 
+
 Here's another example of a target:
 
 ```xml
