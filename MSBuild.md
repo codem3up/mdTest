@@ -36,9 +36,17 @@ Here's another example of a target:
 As you can see, this target has an additional attribute called "RestorePackages".  This attribute is useful because it means that this target will ensure that the RestorePackages target (The one we mentioned earlier) is invoked before running the BuildSolution target.  This allows you to build hierarchies of targets which have dependencies on other targets.  Inside this target we have a command that builds our CWMasterTeacher project (It basically invokes a different MSBuild script that is included in our project)  
 
 ### Property Groups
+A property group is simply a group of properties.  Properties are user defined property names with values (Just like variables) you can use them for various reasons, they can be used to hold paths, or just values that you need throughout your MSBuild file.  An example of a simple property group contained in the CwMasterTeacher build file is below:
+
+```xml
+	<PropertyGroup>
+		<Configuration>Debug</Configuration>
+		<Platform>Any CPU</Platform>
+	</PropertyGroup>
+```
 
 ### Item Groups
-
+The final type of tags we're going to cover in this guide is Item Groups.  Item groups contain a set of user defined item elements.  The MSDN documentation on Items provides a good explanation "Item elements define inputs into the build system, and are grouped into item collections based on their user-defined collection names. These item collections can be used as parameters for tasks, which use the individual items in the collections to perform the steps of the build process. For more information, see [Items](https://github.com/user/repo/blob/branch/other_file.md)." 
 
 That covers a lot of how our current MsBuild script works and what the commands and syntax looks like.  Pretty neat huh?  
 
