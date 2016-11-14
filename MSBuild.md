@@ -33,8 +33,14 @@ Here's another example of a target:
 		<MSBuild Projects="CWMasterTeacher3.sln" Properties="Configuration=$(Configuration);Platform=$(Platform)"/>
 	</Target>
 ```
-As you can see, this target has an additional attribute called "RestorePackages".  This attribute is useful because it means that this target will ensure that the RestorePackages target is invoked before running the BuildSolution target.  This allows you to build hierarchies of targets which have dependencies on other targets.  
+As you can see, this target has an additional attribute called "RestorePackages".  This attribute is useful because it means that this target will ensure that the RestorePackages target (The one we mentioned earlier) is invoked before running the BuildSolution target.  This allows you to build hierarchies of targets which have dependencies on other targets.  Inside this target we have a command that builds our CWMasterTeacher project (It basically invokes a different MSBuild script that is included in our project)  
+
+### Property Groups
 
 ### Item Groups
+
+
+That covers a lot of how our current MsBuild script works and what the commands and syntax looks like.  Pretty neat huh?  
+
 
 
