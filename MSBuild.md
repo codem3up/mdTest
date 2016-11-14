@@ -1,13 +1,13 @@
 # CWMasterTeacher MsBuild Guide
 
 ## Overview
-This document will give a rough overview of MSBuild, as well as how it applies to the CWMasterTeacher project, and a brief summary of the basics of MSBuild a long with some real examples.  MsBuild is a build tool set for managing software.  It can build a project against many supported .NET framework versions.  It is built into and included with Visual studio, however it can be invoked through the command line as well.  MsBuild has an XML like syntax, and looks much like other build based tools like NANT.  MsBuild files come with the extension .msbuild.  Our current 
+This document will give a rough overview of MSBuild, as well as how it applies to the CWMasterTeacher project, and a brief summary of the basics of MSBuild a long with some real examples.  MsBuild is a build tool set for managing software.  It can build a project against many supported .NET framework versions.  It is built into and included with Visual studio, however it can be invoked through the command line as well.  MsBuild has an XML like syntax, and looks much like other build based tools like NANT.  It can be seen as a basic scripting language that can execute commands of files that come with the extension .msbuild.
 
 
 ## The Basics
 
 ### Project
-The very outermost tags in an MSBuild script are the Project Tags.  The project tag is used to highlight where the MSBuild Script begins and ends.  Everything should be placed inside these tags.  
+The very outermost tags in an MSBuild script are the Project Tags.  The project tag is used to highlight where the MSBuild Script begins and ends.  Everything should be placed inside these tags. 
 
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
@@ -17,6 +17,23 @@ The very outermost tags in an MSBuild script are the Project Tags.  The project 
 ```
 
 ### Targets 
+Targets are a key concept when it comes to MSBuild files.  Targets are basically small encapsulated snippets of commands or instructions that get executed when you invoke them.  When you invoke some target, all commands that are within that Targets markup will be executed.  Here's a very simple example of an MSBuild Target
+
+```xml
+	<Target Name="RestorePackages">
+		<Exec Command="nuget.exe restore CWMasterTeacher3.sln" />
+	</Target>
+```
+This target is pretty simple to understand.  It has a name of RestorePackages, and an execute instruction.  An execute instruction will execute a command like how you would execute a command in the terminal.  In this case the command calls nuget in order to restore all of our packages for the CWMasterTeacher solution.  
+
+Here's another example of a target:
+
+```xml
+	<Target Name="BuildSolution" DependsOnTargets="RestorePackages">
+		<MSBuild Projects="CWMasterTeacher3.sln" Properties="Configuration=$(Configuration);Platform=$(Platform)"/>
+	</Target>
+```
+As you can see, this target has an additional attribute called "RestorePackages".  This attribute is useful because it means that this target will ensure that the RestorePackages target is invoked before running the BuildSolution target.  This allows you to build hierarchies of targets which have dependencies on other targets.  
 
 ### Item Groups
 
