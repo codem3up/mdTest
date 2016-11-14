@@ -46,7 +46,15 @@ A property group is simply a group of properties.  Properties are user defined p
 ```
 
 ### Item Groups
-The final type of tags we're going to cover in this guide is Item Groups.  Item groups contain a set of user defined item elements.  The MSDN documentation on Items provides a good explanation "Item elements define inputs into the build system, and are grouped into item collections based on their user-defined collection names. These item collections can be used as parameters for tasks, which use the individual items in the collections to perform the steps of the build process. For more information, see [Items](https://github.com/user/repo/blob/branch/other_file.md)." 
+The final type of tags we're going to cover in this guide is Item Groups.  Item groups contain a set of user defined item elements.  The MSDN documentation on Items provides a good explanation "Item elements define inputs into the build system, and are grouped into item collections based on their user-defined collection names. These item collections can be used as parameters for tasks, which use the individual items in the collections to perform the steps of the build process. For more information, see [Items](https://msdn.microsoft.com/en-us/library/ms171453.aspx)." 
+
+Below is an example of an ItemGroup in our MsBuild file
+```xml
+	<ItemGroup>
+		<TestingSupportBuildFile Include="$(MSBuildStartupDirectory)\TestingSupport.msbuild" />
+	</ItemGroup>
+```
+This ItemGroup contains an item that Includes our TestingSupport msbuild file (So that we can call Targets on the included MsBuild task to perform functions that the other MsBuild file defines. 
 
 That covers a lot of how our current MsBuild script works and what the commands and syntax looks like.  Pretty neat huh?  
 
